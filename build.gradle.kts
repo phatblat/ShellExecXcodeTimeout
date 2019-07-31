@@ -6,6 +6,8 @@
  * User Manual available at https://docs.gradle.org/5.5.1/userguide/custom_plugins.html
  */
 
+import at.phatbl.shellexec.ShellExec
+
 plugins {
     // Apply the Java Gradle plugin development plugin to add support for developing Gradle plugins
     `java-gradle-plugin`
@@ -56,4 +58,11 @@ val functionalTest by tasks.creating(Test::class) {
 val check by tasks.getting(Task::class) {
     // Run the functional tests as part of `check`
     dependsOn(functionalTest)
+}
+
+val xcode by tasks.creating(ShellExec::class) {
+    val xcodePath = "/Applications/Xcode-10.2.1.app"
+    command = """
+    cd '/Volumes/ThunderBay/Users/phatblat/dev/mdk/ios/KPConsumerAuth/Example' && export DEVELOPER_DIR=$xcodePath; xcrun xcodebuild -scheme KPConsumerAuth-Example -workspace KPConsumerAuth.xcworkspace -configuration Debug -showBuildSettings
+    """
 }
