@@ -8,3 +8,24 @@
  */
 
 rootProject.name = "ShellExecXcodeTimeout"
+
+val shellexec = file("../ShellExec")
+if (shellexec.exists()) {
+    // Composite build
+    includeBuild(shellexec) {
+        dependencySubstitution {
+            substitute(module("at.phatbl:shellexec")).with(project(":"))
+        }
+    }
+}
+
+pluginManagement {
+    resolutionStrategy {
+        eachPlugin {
+            when (requested.id.id) {
+                "at.phatbl.shellexec" -> useModule("at.phatbl:shellexec:${requested.version}")
+                else -> Unit
+            }
+        }
+    }
+}

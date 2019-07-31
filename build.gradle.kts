@@ -12,6 +12,7 @@ plugins {
 
     // Apply the Kotlin JVM plugin to add support for Kotlin.
     id("org.jetbrains.kotlin.jvm").version("1.3.31")
+    id("at.phatbl.shellexec").version("1.2.0")
 }
 
 repositories {
